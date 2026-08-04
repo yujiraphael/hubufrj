@@ -8,9 +8,75 @@
 
 ## 2. Typography & Assets
 - **Font Family:** Geist, Inter ou SF Pro.
-- **Ícones:** Exclusivamente SVG inline (componentes React).
+- **Ícones:** Exclusivamente SVG inline (componentes React) — `lucide-react`.
 - **Imagens:** Proibido uso de imagens decorativas. Permitido apenas imagens informacionais.
 
 ## 3. Motion & Interações
 - **Engine:** Framer Motion (física de `spring`).
 - **Feedback Tátil:** Elementos clicáveis devem ter `whileTap={{ scale: 0.98 }}`.
+- **Entrada (Stagger):** Listas/grids animam com `staggerChildren: 0.08` + `duration: 0.3`.
+- **Mobile Drawer:** Slide 300ms spring + fade overlay.
+
+## 4. Filosofia de UX (Princípios Norteadores)
+Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar visualmente**, apenas princípios.
+
+| Princípio | Aplicação Prática |
+|-----------|-------------------|
+| **Poucos cliques** | Ações principais em 1 clique; atalhos de teclado (Cmd+K) |
+| **Navegação previsível** | Padrões consistentes; breadcrumbs em telas profundas |
+| **Busca rápida** | Cmd+K global; filtros instantâneos |
+| **Foco no conteúdo** | Chrome mínimo; zero distrações visuais |
+| **Muito espaço em branco** | `gap-4` a `gap-8` entre cards; `p-6` em containers |
+| **Tipografia consistente** | Escala tipográfica fixa; `font-medium` para labels, `font-normal` para body |
+| **Poucas cores** | Neutral (slate), 1 accent (blue/indigo), semantic (red/amber/green) |
+| **Animações discretas** | `< 300ms`; `spring` natural; reduzir motion se `prefers-reduced-motion` |
+| **Sensação de rapidez** | Optimistic UI; skeleton loaders; zero layout shift |
+
+## 5. Componentes Base (Shared/UI)
+- `Button` — variants: `primary`, `secondary`, `ghost`, `danger`
+- `Card` — Surface `#0b1120` + border sutil
+- `Input` / `Textarea` — dark mode native
+- `Select` / `Combobox` — para Cmd+K e filtros
+- `Avatar` — inicial do nome ou imagem
+- `Badge` — status: `current`, `upcoming`, `pending`, `done`
+- `Separator` — border sutil
+- `Tooltip` — elevated surface
+
+## 6. Componentes Today (Timeline Inteligente)
+- `Timeline` — Container com `aria-live="polite"`, single timer, estado temporal derivado
+- `CurrentClass` — Aula atual: countdown regressivo, barra de progresso, subject info
+- `UpcomingCard` — Próximos: horário, disciplina, sala, professor, status badge
+- `TaskList` — Tarefas agrupadas por prioridade (high/medium/low), checkbox, due date
+- `TimeIndicator` — Linha vertical com marcador "agora" (blue-500), dots nos eventos
+
+## 7. Layout Tokens (Tailwind v4 / CSS Variables)
+```css
+:root {
+  --space-xs: 4px;   /* gap-1 */
+  --space-sm: 8px;   /* gap-2 */
+  --space-md: 16px;  /* gap-4 */
+  --space-lg: 24px;  /* gap-6 */
+  --space-xl: 32px;  /* gap-8 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --sidebar-width: 256px;      /* w-64 */
+  --sidebar-collapsed: 72px;   /* w-18 */
+  --topbar-height: 64px;       /* h-16 */
+  --mobile-breakpoint: 1024px; /* lg */
+}
+```
+
+## 8. Breakpoints & Responsividade
+- **Mobile First** com breakpoints Tailwind: `sm:640px`, `md:768px`, `lg:1024px`, `xl:1280px`
+- **Sidebar:** Desktop fixa (`lg:block`), Mobile drawer (`lg:hidden`)
+- **Topbar:** Hamburger apenas mobile (`lg:hidden`)
+- **Timeline:** Stack vertical mobile, grid `md:grid-cols-2` `lg:grid-cols-3`
+
+## 9. Acessibilidade (Obrigatório)
+- **Keyboard First:** Todo elemento interativo focável (`tabIndex`), `focus-visible` visível
+- **Contraste:** WCAG AA mínimo (4.5:1 texto, 3:1 UI)
+- **Semântica:** HTML5 correto (`<nav>`, `<main>`, `<article>`, `<section>`, `<header>`, `<footer>`)
+- **Screen Readers:** `aria-label` onde ícone sem texto; `aria-live="polite"` na Timeline
+- **Reduced Motion:** Respeitar `prefers-reduced-motion: reduce`
+- **ARIA Roles:** `role="region"` na Timeline, `aria-current` no evento atual
