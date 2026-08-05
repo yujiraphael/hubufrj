@@ -16,6 +16,7 @@
 - **Feedback Tátil:** Elementos clicáveis devem ter `whileTap={{ scale: 0.98 }}`.
 - **Entrada (Stagger):** Listas/grids animam com `staggerChildren: 0.08` + `duration: 0.3`.
 - **Mobile Drawer:** Slide 300ms spring + fade overlay.
+- **ProgressRing:** Animação stroke-dashoffset 800ms easeOut + gradiente + glow filter.
 
 ## 4. Filosofia de UX (Princípios Norteadores)
 Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar visualmente**, apenas princípios.
@@ -49,7 +50,19 @@ Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar 
 - `TaskList` — Tarefas agrupadas por prioridade (high/medium/low), checkbox, due date
 - `TimeIndicator` — Linha vertical com marcador "agora" (blue-500), dots nos eventos
 
-## 7. Layout Tokens (Tailwind v4 / CSS Variables)
+## 7. Componentes Subjects (Entidade Acadêmica Viva)
+- `SubjectCard` — Entidade viva com 3 variantes:
+  - **`full`** — Header + ProgressRing + Grid 6 seções (aula, prova, tarefas, progresso, materiais, ações)
+  - **`compact`** — Código, status, nome, próxima aula, ProgressRing pequeno
+  - **`summary`** — Essenciais + ProgressRing médio para cockpits
+- `SubjectProgressWidget` — Widget de progresso com 2 variantes:
+  - **`grid`** — Cards responsivos (1/2/3 colunas) com progress ring grande
+  - **`list`** — Lista vertical compacta
+- **ProgressRing SVG** — Animação stroke-dashoffset 800ms, gradiente azul→roxo, glow filter, `role="img"`
+- **StatusBadge** — `current` (azul), `upcoming` (âmbar), `done` (verde), `no_classes_today` (neutro)
+- **PriorityBadge** — `high` (vermelho/AlertTriangle), `medium` (âmbar/Clock), `low` (verde/CheckCircle2)
+
+## 8. Layout Tokens (Tailwind v4 / CSS Variables)
 ```css
 :root {
   --space-xs: 4px;   /* gap-1 */
@@ -64,19 +77,24 @@ Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar 
   --sidebar-collapsed: 72px;   /* w-18 */
   --topbar-height: 64px;       /* h-16 */
   --mobile-breakpoint: 1024px; /* lg */
+  --progress-ring-sizes: 36px 44px 56px; /* compact/summary/full */
 }
 ```
 
-## 8. Breakpoints & Responsividade
+## 9. Breakpoints & Responsividade
 - **Mobile First** com breakpoints Tailwind: `sm:640px`, `md:768px`, `lg:1024px`, `xl:1280px`
 - **Sidebar:** Desktop fixa (`lg:block`), Mobile drawer (`lg:hidden`)
 - **Topbar:** Hamburger apenas mobile (`lg:hidden`)
 - **Timeline:** Stack vertical mobile, grid `md:grid-cols-2` `lg:grid-cols-3`
+- **SubjectCard Grid:** `md:grid-cols-2` `lg:grid-cols-3` (full variant)
+- **SubjectProgressWidget:** `sm:grid-cols-2` `lg:grid-cols-3`
 
-## 9. Acessibilidade (Obrigatório)
+## 10. Acessibilidade (Obrigatório)
 - **Keyboard First:** Todo elemento interativo focável (`tabIndex`), `focus-visible` visível
 - **Contraste:** WCAG AA mínimo (4.5:1 texto, 3:1 UI)
 - **Semântica:** HTML5 correto (`<nav>`, `<main>`, `<article>`, `<section>`, `<header>`, `<footer>`)
 - **Screen Readers:** `aria-label` onde ícone sem texto; `aria-live="polite"` na Timeline
 - **Reduced Motion:** Respeitar `prefers-reduced-motion: reduce`
 - **ARIA Roles:** `role="region"` na Timeline, `aria-current` no evento atual
+- **ProgressRing:** `role="img"` com `aria-label="Progresso X%"`
+- **StatusBadges:** Textuais + ícones (não apenas cor)

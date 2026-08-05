@@ -177,61 +177,140 @@ A Timeline Inteligente interpreta dados vindos de disciplinas, calendário, tare
 
 ---
 
-## [03/08/2026] - Etapa 2: Timeline Inteligente Planejada
+## [03/08/2026] - Etapa 2: Timeline Inteligente Implementada
 
-### Objetivo
-Criar a experiência "Hoje" como tela principal do HubUFRJ — uma Timeline acadêmica viva, inspirada em grade de programação de TV, sem animações excessivas.
-
-### Componentes a Criar (`components/today/`)
+### Componentes Criados (`components/today/`)
 | Componente | Responsabilidade |
 |------------|------------------|
-| `Timeline` | Container principal com `aria-live="polite"`, gerencia estado temporal |
-| `CurrentClass` | Aula acontecendo agora — contador regressivo, progresso visual |
-| `UpcomingCard` | Próximos compromissos — horário, disciplina, sala, professor |
-| `TaskList` | Tarefas pendentes agrupadas por prioridade/urgência |
-| `TimeIndicator` | Linha do tempo visual com marcador de "agora" |
+| `Timeline.tsx` | Container principal com `aria-live="polite"`, single timer 60s, estado derivado |
+| `TimeIndicator.tsx` | Linha vertical com marcador "agora" (blue-500), dots por status |
+| `CurrentClass.tsx` | Aula atual: countdown regressivo (min:seg), barra de progresso, info disciplina |
+| `UpcomingCard.tsx` | Próximos compromissos: horário, disciplina, sala, professor, badge prioridade |
+| `TaskList.tsx` | Tarefas agrupadas por prioridade (high/medium/low), checkbox, due date |
+| `types.ts` | Interface `TimelineEvent` + funções puras (`computeStatus`, `getTimeRemaining`, `getProgress`) |
+| `mockData.ts` | 6 eventos mock (4 aulas, 1 tarefa, 1 prova) + helpers de filtro |
+| `index.ts` | Barrel export |
 
-### Dados Mock (Estrutura Preparada para Integração Futura)
-```typescript
-interface TimelineEvent {
-  id: string;
-  subjectId: string;           // ligação futura com Subject
-  subjectName: string;
-  subjectCode: string;
-  type: 'class' | 'exam' | 'task' | 'personal';
-  startTime: string;           // HH:mm
-  endTime: string;             // HH:mm
-  room?: string;
-  professor?: string;
-  status: 'current' | 'upcoming' | 'done' | 'pending';
-  priority?: 'high' | 'medium' | 'low';
-}
+### Correções Mobile (Layout)
+- **Sidebar** → Drawer mobile (`< lg`), slide spring + overlay, click-outside/Escape
+- **Topbar** → Hamburger `lg:hidden` controla drawer state
+- **Dashboard Layout** → Client Component com estado `sidebarOpen`
+
+### Página "Hoje" Refatorada
+- Usa `<Timeline />` com mock data das 6 disciplinas
+
+### Arquivos Alterados (14 total)
+**Novos (9):**
+```
+src/components/today/types.ts
+src/components/today/mockData.ts
+src/components/today/Timeline.tsx
+src/components/today/TimeIndicator.tsx
+src/components/today/CurrentClass.tsx
+src/components/today/UpcomingCard.tsx
+src/components/today/TaskList.tsx
+src/components/today/index.ts
+src/app/(dashboard-group)/hoje/page.tsx (refatorado)
 ```
 
-### Arquitetura de Atualização Temporal
-- **Single timer** no `Timeline` (setInterval 1min ou requestAnimationFrame otimizado)
-- Estado derivado: `status` calculado via `startTime`/`endTime` vs `now`
-- Evitar re-render pesado: memoização + `React.memo` nos cards
-- Preparado para receber dados de: disciplinas, calendário, tarefas, provas, eventos pessoais
+**Modificados (5):**
+```
+src/components/layout/Sidebar.tsx (mobile drawer)
+src/components/layout/Topbar.tsx (hambúrguer toggle)
+src/app/(dashboard-group)/layout.tsx (client + sidebar state)
+src/app/globals.css (já tinha tokens)
+docs/00-memoria.md (registro implementação)
+```
 
-### Sidebar Mobile (Correção)
-- Drawer lateral em `< 1024px` (lg breakpoint)
-- Botão hambúrguer no Topbar abre/fecha
-- Overlay com click-outside + Escape para fechar
-- Animação Framer Motion (slide + fade)
+---
 
-### Arquivos a Criar/Modificar
-| Arquivo | Tipo | Descrição |
-|---------|------|-----------|
-| `src/components/today/Timeline.tsx` | Novo | Container principal com aria-live |
-| `src/components/today/CurrentClass.tsx` | Novo | Aula atual com countdown |
-| `src/components/today/UpcomingCard.tsx` | Novo | Próximos compromissos |
-| `src/components/today/TaskList.tsx` | Novo | Lista de tarefas por prioridade |
-| `src/components/today/TimeIndicator.tsx` | Novo | Linha visual com marcador "agora" |
-| `src/components/today/index.ts` | Novo | Barrel export |
-| `src/components/layout/Sidebar.tsx` | Atualizado | Mobile drawer + hambúrguer |
-| `src/components/layout/Topbar.tsx` | Atualizado | Toggle sidebar mobile |
-| `src/app/(dashboard-group)/hoje/page.tsx` | Atualizado | Usar novos componentes |
-| `docs/00-memoria.md` | Atualizado | Registro da implementação |
-| `docs/07-design-system.md` | Atualizado | Tokens/Componentes Today |
-| `docs/08-project-rules.md` | Atualizado | Regras de timeline/mobile |
+## [05/08/2026] - Etapa 3: SubjectCard como Entidade Acadêmica Viva
+
+### Objetivo
+Construir a primeira versão do "cérebro acadêmico" do Hub UFRJ — SubjectCard como entidade viva, não apenas card visual.
+
+### Componentes Criados
+
+#### `components/subjects/types.ts`
+Interfaces completas para o domínio acadêmico:
+- `Subject` — Entidade principal com todas as relações
+- `SubjectTask` — Tarefas com prioridade, status, horas estimadas
+- `SubjectProgress` — Progresso multidimensional (geral, frequência, notas, materiais, tarefas)
+- `SubjectMaterial` — Materiais tipados (pdf, video, link, note, slide) com tags
+- `SubjectAttendance` — Frequência com percentual
+- `SubjectSummary` — Resumo computado para UI (status, prioridade, próxima aula/prova)
+- Funções puras: `computeSubjectStatus`, `computeSubjectPriority`, `createSubjectSummary`, `formatRelativeDate`
+
+#### `components/subjects/mockData.ts`
+6 disciplinas reais com dados completos:
+1. **Cálculo 2** (CALC2) — IME, Prof. Carlos Silva, aula hoje 13:00, prova em 3 dias
+2. **Química Orgânica I** (QO1) — EQ, Prof. Ana Santos, aula amanhã, prova na próxima semana
+3. **Química Analítica Exp. I** (QAE1) — EQ, Prof. Roberto Costa, aula hoje 08:00, prova prática em 2 semanas
+4. **Fundamentos de Desenho Técnico** (FDT) — EQA+EQB, Prof. Marcos Lima, aula amanhã
+5. **Química Experimental** (QEXP) — EQ/EQG+EAG+EBG+QIG, Prof. Fernanda Oliveira, aula sexta
+6. **Química Analítica** (QAN) — EBG/EAG, Prof. Paulo Mendes, aula depois de amanhã
+
+Cada disciplina inclui: horário completo, próxima aula com tópico, próxima prova com peso, 2 tarefas (status/prioridade/horas), progresso multidimensional, 2-3 materiais (pdf/video/link/slide), frequência realista.
+
+#### `components/subjects/SubjectCard.tsx`
+Entidade acadêmica viva com 3 variantes:
+- **`full`** (padrão) — Visão completa: header com progress ring, grid 6 seções (próxima aula, próxima prova, tarefas, progresso detalhado, materiais, ações rápidas)
+- **`compact`** — Para grids: código, status, nome, próxima aula, progress ring
+- **`summary`** — Para cards de resumo: essenciais + progress ring
+
+Features:
+- ProgressRing SVG animado com gradiente e glow
+- StatusBadge (current/upcoming/done/no_classes_today) com ícones
+- PriorityBadge (high/medium/low) com ícones Lucide
+- Tarefas com checkbox, prioridade visual, due date, horas estimadas
+- Progresso detalhado: 4 barras (frequência, notas, materiais lidos, tarefas concluídas)
+- Materiais com ícones por tipo, indicador "não lido"
+- Ações rápidas contextuais (Ir para Aula, Ver Tarefas, Materiais, Detalhes)
+- `whileTap` scale 0.98, motion entrance
+
+#### `components/subjects/index.ts`
+Barrel export completo.
+
+#### `components/dashboard/SubjectProgressWidget.tsx`
+Widget para Home/Cockpit com 2 variantes:
+- **`grid`** (padrão) — Cards em grid responsivo (1/2/3 colunas)
+- **`list`** — Lista vertical compacta
+
+Cada card mostra: código, status badge, nome, professor, progress ring grande, barra de progresso geral, alerta de próxima prova, contador de tarefas pendentes. Ordenação: prioridade (high→low) + progresso (menor primeiro).
+
+### Integração na Página "Hoje" (`app/(dashboard-group)/hoje/page.tsx`)
+Transformada em **Cockpit Acadêmico**:
+1. **Header** — Título + subtítulo
+2. **Top Row** — Current Subject (summary variant, span 2 cols) + Próximas Provas (quick view)
+3. **SubjectProgressWidget** — Grid de 6 disciplinas ordenadas por prioridade
+4. **Timeline Inteligente** — Mantida da Etapa 2
+5. **Próximas Aulas** — Compact SubjectCards das 3 próximas disciplinas
+
+### Arquivos Criados/Modificados (Etapa 3)
+**Novos (6):**
+```
+src/components/subjects/types.ts
+src/components/subjects/mockData.ts
+src/components/subjects/SubjectCard.tsx
+src/components/subjects/index.ts
+src/components/dashboard/SubjectProgressWidget.tsx
+src/app/(dashboard-group)/hoje/page.tsx (refatorado - cockpit)
+```
+
+### Decisões Técnicas
+1. **Mock First** — Dados realistas completos antes de qualquer backend
+2. **Funções Puras** — `computeSubjectStatus`, `computeSubjectPriority`, `createSubjectSummary` em `types.ts` (testáveis, sem React)
+3. **Variantes de Card** — Mesmo componente, 3 densidades de informação (full/compact/summary)
+4. **ProgressRing SVG** — Animação nativa com Framer Motion, gradiente azul→roxo, glow filter
+5. **Prioridade Computada** — Algoritmo baseado em: prova próxima (≤3d=3pts, ≤7d=2pts, ≤14d=1pt) + tarefas high pendentes + progresso geral (<40=2pts, <60=1pt)
+6. **Compatibilidade** — Mantém arquitetura Etapa 2 (Timeline, today/, layout/)
+7. **Sem core/ ainda** — Aguardar 2+ consumidores antes de extrair domínio
+
+---
+
+### Próxima Etapa (conforme roadmap)
+**Etapa 4: SubjectDetails — Página Completa da Disciplina**
+- Rota `app/(dashboard-group)/disciplinas/[subjectId]/page.tsx`
+- Abas: Info, Calendário, Notas, Materiais, Tarefas, Provas, Frequência
+- Composição: `SubjectHeader` + `SubjectMeta` + `Tabs` com submódulos
+- Integração com `SubjectCard` (ação "Detalhes")
