@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   BookOpen,
@@ -116,13 +117,22 @@ export const SubjectCard = memo(function SubjectCard({
 }: SubjectCardProps) {
   const summary = createSubjectSummary(subject, now);
   const isInteractive = typeof onClick === 'function';
+  const router = useRouter();
+  const handleNavigate = () => {
+    if (navigateToDetails) {
+      router.push(`/disciplinas/${subject.id}`);
+    }
+    if (onClick) {
+      onClick();
+    }
+  };
 
   if (variant === 'summary') {
     return (
       <motion.article
         className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 transition-all hover:border-blue-500/30 ${isInteractive ? 'cursor-pointer' : ''}`}
         whileTap={{ scale: 0.98 }}
-        onClick={onClick}
+        onClick={handleNavigate}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
@@ -172,7 +182,7 @@ export const SubjectCard = memo(function SubjectCard({
       <motion.article
         className={`bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30' : ''}`}
         whileTap={{ scale: 0.98 }}
-        onClick={onClick}
+        onClick={handleNavigate}
       >
         <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -211,10 +221,10 @@ export const SubjectCard = memo(function SubjectCard({
   const unreadMaterials = subject.materials.filter(m => !m.isRead).length;
 
   return (
-    <motion.article
-      className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)]' : ''}`}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
+      <motion.article
+        className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)]' : ''}`}
+        whileTap={{ scale: 0.98 }}
+        onClick={handleNavigate}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-4">

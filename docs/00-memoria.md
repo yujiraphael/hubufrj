@@ -308,6 +308,15 @@ src/app/(dashboard-group)/hoje/page.tsx (refatorado - cockpit)
 
 ---
 
+## [06/08/2026] - Etapa 3 Concluída & Documentação Atualizada
+
+### Resumo da Etapa 3
+- **SubjectCard** implementado como entidade acadêmica viva com 3 variantes (full, compact, summary)
+- **Contrato de domínio** completo em `types.ts` com interfaces e funções puras
+- **Mock data** realista para 6 disciplinas da Engenharia de Alimentos/UFRJ
+- **SubjectProgressWidget** para cockpit com ordenação por prioridade
+- **Página "Hoje"** transformada em Cockpit Acadêmico integrando SubjectCard + Timeline
+
 ### Próxima Etapa (conforme roadmap)
 **Etapa 4: SubjectDetails — Página Completa da Disciplina**
 - Rota `app/(dashboard-group)/disciplinas/[subjectId]/page.tsx`

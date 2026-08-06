@@ -62,7 +62,19 @@ Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar 
 - **StatusBadge** — `current` (azul), `upcoming` (âmbar), `done` (verde), `no_classes_today` (neutro)
 - **PriorityBadge** — `high` (vermelho/AlertTriangle), `medium` (âmbar/Clock), `low` (verde/CheckCircle2)
 
-## 8. Layout Tokens (Tailwind v4 / CSS Variables)
+## 8. Componentes SubjectDetails (Página da Disciplina)
+- `SubjectHeader` — Cabeçalho com código, nome, professor, ProgressRing grande, badges de status/prioridade
+- `SubjectMeta` — Metadados: departamento, turma, horário completo, sala, créditos
+- `Tabs` — Navegação por abas com indicação visual de aba ativa
+- `SubjectInfoTab` — Informações gerais, descrição, ementa, bibliografia
+- `SubjectCalendarTab` — Calendário da disciplina (aulas, provas, entregas)
+- `SubjectGradesTab` — Notas, médias, histórico de avaliações
+- `SubjectMaterialsTab` — Materiais organizados por tipo/tópico, status de leitura
+- `SubjectTasksTab` — Tarefas com filtros por status/prioridade, ações inline
+- `SubjectExamsTab` — Provas agendadas, pesos, resultados, gabaritos
+- `SubjectAttendanceTab` — Frequência detalhada, percentual, faltas permitidas/restantes
+
+## 9. Layout Tokens (Tailwind v4 / CSS Variables)
 ```css
 :root {
   --space-xs: 4px;   /* gap-1 */
@@ -81,15 +93,16 @@ Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar 
 }
 ```
 
-## 9. Breakpoints & Responsividade
+## 10. Breakpoints & Responsividade
 - **Mobile First** com breakpoints Tailwind: `sm:640px`, `md:768px`, `lg:1024px`, `xl:1280px`
 - **Sidebar:** Desktop fixa (`lg:block`), Mobile drawer (`lg:hidden`)
 - **Topbar:** Hamburger apenas mobile (`lg:hidden`)
 - **Timeline:** Stack vertical mobile, grid `md:grid-cols-2` `lg:grid-cols-3`
 - **SubjectCard Grid:** `md:grid-cols-2` `lg:grid-cols-3` (full variant)
 - **SubjectProgressWidget:** `sm:grid-cols-2` `lg:grid-cols-3`
+- **SubjectDetails:** Stack vertical mobile, sidebar de navegação lateral em `lg:`
 
-## 10. Acessibilidade (Obrigatório)
+## 11. Acessibilidade (Obrigatório)
 - **Keyboard First:** Todo elemento interativo focável (`tabIndex`), `focus-visible` visível
 - **Contraste:** WCAG AA mínimo (4.5:1 texto, 3:1 UI)
 - **Semântica:** HTML5 correto (`<nav>`, `<main>`, `<article>`, `<section>`, `<header>`, `<footer>`)
