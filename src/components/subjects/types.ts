@@ -5,6 +5,7 @@ export interface Subject {
   department: string;
   professor: string;
   classCode: string; // turma
+  credits: number | null; // carga horária em créditos
   schedule: {
     days: string[]; // ['seg', 'qua']
     startTime: string; // HH:mm
