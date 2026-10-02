@@ -366,3 +366,10 @@ Não fechar ainda a arquitetura completa das páginas de matéria, IA, bibliotec
 - Navegação de retorno em páginas internas deve respeitar o histórico do navegador para preservar posição de rolagem.
 - Mobile-first passa a ser regra permanente: 360–430 px primeiro, desktop como expansão.
 - Autenticação real será implementada junto da camada de dados; não criar login falso no frontend.
+
+
+## [02/10/2026] - Redesign do Cabeçalho
+- Topbar redesenhada com prioridade mobile-first.
+- Remover aparência de painel administrativo da barra superior.
+- Mobile: barra compacta/flutuante, menu à esquerda, marca central e avatar discreto à direita.
+- Busca e notificações deixam de ocupar a navegação primária até terem função real.
