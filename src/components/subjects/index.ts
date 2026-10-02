@@ -6,4 +6,4 @@ export {
   createSubjectSummary,
   formatRelativeDate
 } from './types';
-export { mockSubjects, getSubjectById, getSubjectsByPriority, getSubjectSummaries } from './mockData';
+export { subjects, getSubjectById, getSubjectsByPriority, getSubjectSummaries } from './data';

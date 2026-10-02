@@ -193,3 +193,13 @@ A homepage passa a ser tratada como a principal porta de entrada do produto.
 Implementar apenas a homepage neutra e modular.
 Páginas internas de disciplina e demais módulos serão definidos em etapas posteriores.
 
+
+
+## Regra Permanente — Dados Reais e Mobile First
+1. Não introduzir dados acadêmicos fictícios para preencher interface.
+2. Sem dado real, renderizar estado vazio explícito.
+3. Não simular banco de dados com dados persistentes falsos.
+4. Botões de adicionar devem nascer desacoplados da futura camada de persistência.
+5. Páginas e componentes devem ser desenhados primeiro para mobile (360–430 px).
+6. Ações de voltar em telas internas devem priorizar histórico real para preservar contexto e rolagem.
+7. Homepage não deve virar painel de métricas; manter baixa densidade e alto impacto visual.

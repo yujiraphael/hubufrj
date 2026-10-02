@@ -137,3 +137,12 @@ Até a definição da identidade visual definitiva:
 
 A homepage deve parecer produto final, mas continuar preparada para receber uma identidade visual futura sem retrabalho estrutural.
 
+
+
+## 9. Mobile First + Empty States
+- Projetar primeiro para 360–430 px.
+- Conteúdo principal com padding horizontal compacto no mobile; aumentar progressivamente.
+- Evitar grids e densidade informacional na primeira dobra.
+- Estados vazios são parte do produto: devem explicar o próximo passo e oferecer uma ação clara.
+- A homepage deve privilegiar composição, tipografia, espaço negativo e uma ação principal, evitando métricas e cards administrativos.
+- Navegação mobile deve priorizar alcance do polegar e alvos de toque de pelo menos 44 px.

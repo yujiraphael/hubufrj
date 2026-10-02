@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import type { TimelineEvent } from './types';
 import { computeStatus } from './types';
-import { mockTimelineEvents, getEventsForToday, getTasksForToday } from './mockData';
+import { timelineEvents, getEventsForToday, getTasksForToday } from './data';
 import { TimeIndicator } from './TimeIndicator';
 import { CurrentClass } from './CurrentClass';
 import { UpcomingCard } from './UpcomingCard';
@@ -19,7 +19,7 @@ export function Timeline() {
   }, []);
 
   const eventsWithStatus = useMemo(() => {
-    return mockTimelineEvents.map((event) => ({
+    return timelineEvents.map((event) => ({
       ...event,
       status: computeStatus(event, now),
     }));

@@ -354,3 +354,15 @@ Nesta etapa, implementar somente a homepage:
 
 Não fechar ainda a arquitetura completa das páginas de matéria, IA, biblioteca ou documentos.
 
+
+
+## [02/10/2026] - Limpeza de Dados Fictícios + Mobile First
+
+### Decisões
+- Remover dados acadêmicos fictícios da interface e do fluxo principal.
+- Estados sem dados devem ser tratados como estado válido do produto, com CTA de adição onde fizer sentido.
+- Não simular persistência: ações que futuramente dependerão de banco devem estar preparadas visualmente, sem gravar dados falsos.
+- A homepage passa a ser uma entrada visual minimalista, não um painel carregado de métricas.
+- Navegação de retorno em páginas internas deve respeitar o histórico do navegador para preservar posição de rolagem.
+- Mobile-first passa a ser regra permanente: 360–430 px primeiro, desktop como expansão.
+- Autenticação real será implementada junto da camada de dados; não criar login falso no frontend.

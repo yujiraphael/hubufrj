@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { SubjectDetails } from '@/components/subjects/SubjectDetails';
-import { getSubjectById } from '@/components/subjects/mockData';
+import { getSubjectById } from '@/components/subjects/data';
 
 interface PageProps {
   params: Promise<{ subjectId: string }>;

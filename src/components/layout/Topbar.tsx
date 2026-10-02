@@ -48,7 +48,7 @@ export function Topbar({ onMenuClick }: TopbarProps) {
   }, []);
 
   return (
-    <header className="h-16 bg-[var(--surface)] border-b border-[rgba(255,255,255,0.08)] flex items-center justify-between px-6">
+    <header className="h-16 bg-[var(--surface)] border-b border-[rgba(255,255,255,0.08)] flex items-center justify-between px-4 sm:px-6">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
