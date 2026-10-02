@@ -113,10 +113,12 @@ export const SubjectCard = memo(function SubjectCard({
   subject, 
   now = new Date(), 
   variant = 'full',
-  onClick 
+  onClick,
+  navigateToDetails = false,
+  className = '',
 }: SubjectCardProps) {
   const summary = createSubjectSummary(subject, now);
-  const isInteractive = typeof onClick === 'function';
+  const isInteractive = navigateToDetails || typeof onClick === 'function';
   const router = useRouter();
   const handleNavigate = () => {
     if (navigateToDetails) {
@@ -130,7 +132,7 @@ export const SubjectCard = memo(function SubjectCard({
   if (variant === 'summary') {
     return (
       <motion.article
-        className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 transition-all hover:border-blue-500/30 ${isInteractive ? 'cursor-pointer' : ''}`}
+        className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 transition-all hover:border-blue-500/30 ${isInteractive ? 'cursor-pointer' : ''} ${className}`}
         whileTap={{ scale: 0.98 }}
         onClick={handleNavigate}
       >
@@ -180,7 +182,7 @@ export const SubjectCard = memo(function SubjectCard({
   if (variant === 'compact') {
     return (
       <motion.article
-        className={`bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30' : ''}`}
+        className={`bg-[var(--surface)] border border-[var(--border)] rounded-lg p-3 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30' : ''} ${className}`}
         whileTap={{ scale: 0.98 }}
         onClick={handleNavigate}
       >
@@ -222,7 +224,7 @@ export const SubjectCard = memo(function SubjectCard({
 
   return (
       <motion.article
-        className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)]' : ''}`}
+        className={`bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 transition-all ${isInteractive ? 'cursor-pointer hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)]' : ''} ${className}`}
         whileTap={{ scale: 0.98 }}
         onClick={handleNavigate}
     >
