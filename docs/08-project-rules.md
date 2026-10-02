@@ -174,3 +174,22 @@ interface TimelineEvent {
 4. Somente após confirmação → implementar
 
 Nunca implementar funcionalidades importantes sem antes atualizar a documentação do projeto.
+
+---
+
+## 14. Regra Temporária — Nova Homepage
+
+A homepage passa a ser tratada como a principal porta de entrada do produto.
+
+### Princípios
+- Priorizar estudo e continuidade, não métricas.
+- Evitar widgets puramente administrativos.
+- Cada bloco deve responder a uma necessidade concreta do estudante.
+- Matérias devem ser apresentadas como entradas para ambientes de estudo.
+- Informações burocráticas ficam em segundo plano.
+- A identidade visual definitiva não deve ser codificada nesta etapa.
+
+### Escopo Atual
+Implementar apenas a homepage neutra e modular.
+Páginas internas de disciplina e demais módulos serão definidos em etapas posteriores.
+

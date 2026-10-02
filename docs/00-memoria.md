@@ -323,3 +323,34 @@ src/app/(dashboard-group)/hoje/page.tsx (refatorado - cockpit)
 - Abas: Info, Calendário, Notas, Materiais, Tarefas, Provas, Frequência
 - Composição: `SubjectHeader` + `SubjectMeta` + `Tabs` com submódulos
 - Integração com `SubjectCard` (ação "Detalhes")
+
+---
+
+## [02/10/2026] - Nova Direção: Hub de Estudos + Homepage Premium
+
+### Decisão de Produto
+O HubUFRJ passa a priorizar a experiência de **estudo por matéria**, mantendo a organização acadêmica como camada de suporte.
+
+A nova homepage deve:
+- funcionar como porta de entrada diária;
+- destacar continuidade de estudo, contexto do dia e próximas avaliações;
+- apresentar matérias como espaços de estudo completos;
+- manter acessos secundários para grade, carteirinha, documentos, calendário e materiais;
+- evitar aparência de dashboard administrativo genérico.
+
+### Direção Visual desta Etapa
+A implementação atual deve ser **visualmente neutra**, sem identidade de marca definitiva.
+Paleta, linguagem gráfica, logo e demais decisões de branding serão aplicados posteriormente com base em referências visuais fornecidas pelo usuário.
+
+### Escopo desta Implementação
+Nesta etapa, implementar somente a homepage:
+1. saudação/contexto;
+2. ação principal de estudo;
+3. visão de hoje;
+4. matérias;
+5. continuidade;
+6. próximas avaliações;
+7. acessos rápidos.
+
+Não fechar ainda a arquitetura completa das páginas de matéria, IA, biblioteca ou documentos.
+
