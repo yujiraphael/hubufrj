@@ -111,3 +111,29 @@ Inspiração: Linear, Raycast, Vercel, GitHub, ChatGPT, Notion — **sem copiar 
 - **ARIA Roles:** `role="region"` na Timeline, `aria-current` no evento atual
 - **ProgressRing:** `role="img"` com `aria-label="Progresso X%"`
 - **StatusBadges:** Textuais + ícones (não apenas cor)
+
+---
+
+## 12. Homepage Neutra — Direção Temporária
+
+Até a definição da identidade visual definitiva:
+- usar superfícies e tons neutros;
+- evitar cor de marca dominante;
+- evitar gradientes proprietários;
+- priorizar tipografia, ritmo, hierarquia e espaçamento;
+- usar ícones apenas como apoio;
+- manter poucos elementos na primeira dobra;
+- reduzir densidade visual e evitar grids excessivamente técnicos;
+- animações discretas, sem efeitos decorativos chamativos.
+
+### Hierarquia da Homepage
+1. Saudação e contexto
+2. Ação principal de estudo
+3. Hoje
+4. Minhas matérias
+5. Continuar estudando
+6. Próximas avaliações
+7. Acessos rápidos
+
+A homepage deve parecer produto final, mas continuar preparada para receber uma identidade visual futura sem retrabalho estrutural.
+
