@@ -1,134 +1,90 @@
 'use client';
 
-import { MapPin, Clock, Calendar, User, Building2, Target, BookOpen, AlertCircle } from 'lucide-react';
+import { BookOpen, Calendar, Clock, GraduationCap, Plus, User } from 'lucide-react';
 import type { Subject } from './types';
-import { formatRelativeDate } from './types';
 
 interface SubjectInfoTabProps {
   subject: Subject;
 }
 
+function EmptyField({ label }: { label: string }) {
+  return (
+    <div className="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--background)] p-4">
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className="mt-1 text-sm font-medium text-foreground">Não informado</p>
+    </div>
+  );
+}
+
 export function SubjectInfoTab({ subject }: SubjectInfoTabProps) {
-  const nextClassDate = subject.nextClass ? formatRelativeDate(subject.nextClass.date, new Date()) : null;
-  const nextExamDate = subject.nextExam ? formatRelativeDate(subject.nextExam.date, new Date()) : null;
+  const hasSchedule = subject.schedule.days.length > 0 && subject.schedule.startTime && subject.schedule.endTime;
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Informações Gerais */}
-      <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-          <Target className="h-5 w-5 text-blue-400" aria-hidden="true" />
-          Informações Gerais
-        </h2>
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="flex items-center gap-3 p-4 bg-[var(--background)] border border-[var(--border)] rounded-lg">
-            <Building2 className="h-5 w-5 text-muted-foreground flex-shrink-0" aria-hidden="true" />
-            <div>
-              <dt className="text-xs text-muted-foreground">Departamento</dt>
-              <dd className="font-medium text-foreground">{subject.department}</dd>
-            </div>
+    <div className="space-y-6 p-4 sm:p-6">
+      <section>
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-muted-foreground">{subject.code}</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-foreground">{subject.name}</h2>
           </div>
-          <div className="flex items-center gap-3 p-4 bg-[var(--background)] border border-[var(--border)] rounded-lg">
-            <User className="h-5 w-5 text-muted-foreground flex-shrink-0" aria-hidden="true" />
-            <div>
-              <dt className="text-xs text-muted-foreground">Professor</dt>
-              <dd className="font-medium text-foreground">{subject.professor}</dd>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-4 bg-[var(--background)] border border-[var(--border)] rounded-lg">
-            <Calendar className="h-5 w-5 text-muted-foreground flex-shrink-0" aria-hidden="true" />
-            <div>
-              <dt className="text-xs text-muted-foreground">Turma</dt>
-              <dd className="font-medium text-foreground">{subject.classCode}</dd>
-            </div>
-          </div>
-        </dl>
-      </section>
 
-      {/* Horário */}
-      <section className="space-y-4 border-t border-[var(--border)] pt-6">
-        <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-          <Clock className="h-5 w-5 text-blue-400" aria-hidden="true" />
-          Horário das Aulas
-        </h2>
-        <div className="bg-[var(--background)] border border-[var(--border)] rounded-lg overflow-hidden">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-[var(--elevated)]">
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Dia</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Horário</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Sala</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--border)]">
-              {subject.schedule.days.map((day, index) => (
-                <tr key={day} className="hover:bg-[var(--elevated)]">
-                  <td className="px-4 py-3 text-sm font-medium text-foreground capitalize">{day}</td>
-                  <td className="px-4 py-3 text-sm text-foreground font-mono tabular-nums">{subject.schedule.startTime}–{subject.schedule.endTime}</td>
-                  <td className="px-4 py-3 text-sm text-muted-foreground">{subject.schedule.room}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <button
+            type="button"
+            disabled
+            title="Será ativado quando conectarmos o banco de dados"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 text-sm text-muted-foreground disabled:cursor-not-allowed"
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            Editar
+          </button>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {subject.professor ? (
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
+              <User className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <p className="mt-3 text-xs text-muted-foreground">Professor</p>
+              <p className="mt-1 text-sm font-medium text-foreground">{subject.professor}</p>
+            </div>
+          ) : <EmptyField label="Professor" />}
+
+          {subject.classCode ? (
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
+              <GraduationCap className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <p className="mt-3 text-xs text-muted-foreground">Turma</p>
+              <p className="mt-1 text-sm font-medium text-foreground">{subject.classCode}</p>
+            </div>
+          ) : <EmptyField label="Turma" />}
+
+          {hasSchedule ? (
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
+              <Clock className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <p className="mt-3 text-xs text-muted-foreground">Horário</p>
+              <p className="mt-1 text-sm font-medium text-foreground">{subject.schedule.startTime}–{subject.schedule.endTime}</p>
+            </div>
+          ) : <EmptyField label="Horário" />}
+
+          {subject.credits !== null ? (
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4">
+              <BookOpen className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <p className="mt-3 text-xs text-muted-foreground">Créditos</p>
+              <p className="mt-1 text-sm font-medium text-foreground">{subject.credits}</p>
+            </div>
+          ) : <EmptyField label="Créditos" />}
         </div>
       </section>
 
-      {/* Próximos Eventos */}
-      <section className="space-y-4 border-t border-[var(--border)] pt-6">
-        <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-blue-400" aria-hidden="true" />
-          Próximos Eventos
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <article className="bg-[var(--background)] border border-[var(--border)] rounded-lg p-5">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                <BookOpen className="h-5 w-5 text-blue-400" aria-hidden="true" />
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">Próxima Aula</dt>
-                <dd className="font-medium text-foreground">{subject.nextClass?.topic || 'Não agendada'}</dd>
-              </div>
-            </div>
-            <dl className="space-y-2 text-sm">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                <span>{nextClassDate || '—'} • {subject.schedule.startTime}–{subject.schedule.endTime}</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                <span>{subject.nextClass?.room || subject.schedule.room}</span>
-              </div>
-            </dl>
-          </article>
-
-          <article className="bg-[var(--background)] border border-[var(--border)] rounded-lg p-5">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                <AlertCircle className="h-5 w-5 text-amber-400" aria-hidden="true" />
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">Próxima Prova</dt>
-                <dd className="font-medium text-foreground">{subject.nextExam?.title || 'Não agendada'}</dd>
-              </div>
-            </div>
-            <dl className="space-y-2 text-sm">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                <span>{nextExamDate || '—'}</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                <span>{subject.nextExam?.room || '—'}</span>
-              </div>
-              {subject.nextExam && (
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Target className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                  <span>Peso: {Math.round(subject.nextExam.weight * 100)}%</span>
-                </div>
-              )}
-            </dl>
-          </article>
+      <section className="rounded-3xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05]">
+            <Calendar className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+          </div>
+          <div>
+            <h3 className="font-medium text-foreground">Próximos eventos</h3>
+            <p className="text-sm text-muted-foreground">
+              Nenhuma aula, prova ou entrega cadastrada ainda.
+            </p>
+          </div>
         </div>
       </section>
     </div>
