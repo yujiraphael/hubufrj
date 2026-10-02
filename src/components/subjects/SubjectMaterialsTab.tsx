@@ -1,6 +1,6 @@
 'use client';
 
-import { FileText, Plus } from 'lucide-react';
+import { FileText, Link2, Plus } from 'lucide-react';
 import type { Subject } from './types';
 
 interface SubjectMaterialsTabProps {
@@ -19,11 +19,7 @@ export function SubjectMaterialsTab({ subject }: SubjectMaterialsTabProps) {
           <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
             PDFs, links, slides e anotações de {subject.name} vão aparecer aqui quando conectarmos o armazenamento.
           </p>
-          <button
-            type="button"
-            disabled
-            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-foreground px-4 py-2 text-sm font-medium text-background disabled:cursor-not-allowed disabled:opacity-70"
-          >
+          <button type="button" disabled className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-foreground px-4 py-2 text-sm font-medium text-background disabled:cursor-not-allowed disabled:opacity-70">
             <Plus className="h-4 w-4" aria-hidden="true" />
             Adicionar material
           </button>
@@ -32,5 +28,23 @@ export function SubjectMaterialsTab({ subject }: SubjectMaterialsTabProps) {
     );
   }
 
-  return null;
+  return (
+    <div className="space-y-3 p-4 sm:p-6">
+      {subject.materials.map((material) => (
+        <a
+          key={material.id}
+          href={material.url}
+          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 transition-colors hover:bg-white/[0.04]"
+        >
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.05]">
+            {material.type === 'link' ? <Link2 className="h-4 w-4 text-muted-foreground" /> : <FileText className="h-4 w-4 text-muted-foreground" />}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-medium text-foreground">{material.title}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{material.type.toUpperCase()}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
 }
