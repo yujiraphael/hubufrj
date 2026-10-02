@@ -1,4 +1,4 @@
-import type { Subject, SubjectTask, SubjectMaterial } from './types';
+import type { Subject } from './types';
 
 const today = new Date();
 const tomorrow = new Date(today);
@@ -28,6 +28,7 @@ export const mockSubjects: Subject[] = [
     department: 'Matemática / IME',
     professor: 'Prof. Dr. Carlos Silva',
     classCode: '[Unif][13-15] Turma A',
+    credits: null,
     schedule: {
       days: ['seg', 'qua'],
       startTime: '13:00',
@@ -115,6 +116,7 @@ export const mockSubjects: Subject[] = [
     department: 'Química / EQ',
     professor: 'Prof. Dr. Ana Santos',
     classCode: 'EQ/EQA - Turma 1',
+    credits: null,
     schedule: {
       days: ['ter', 'qui'],
       startTime: '15:30',
@@ -202,6 +204,7 @@ export const mockSubjects: Subject[] = [
     department: 'Química / EQ',
     professor: 'Prof. Dr. Roberto Costa',
     classCode: 'EAB/EBB/QIB/EQB - Turma 2',
+    credits: null,
     schedule: {
       days: ['seg', 'qua'],
       startTime: '08:00',
@@ -280,6 +283,7 @@ export const mockSubjects: Subject[] = [
     department: 'Engenharia / EQA+EQB',
     professor: 'Prof. Dr. Marcos Lima',
     classCode: 'EQA+EQB - Turma Única',
+    credits: null,
     schedule: {
       days: ['ter', 'qui'],
       startTime: '10:30',
@@ -358,6 +362,7 @@ export const mockSubjects: Subject[] = [
     department: 'Química / EQ/EQG+EAG+EBG+QIG',
     professor: 'Prof. Dr. Fernanda Oliveira',
     classCode: 'EQ/EQG+EAG+EBG+QIG - Turma 1',
+    credits: null,
     schedule: {
       days: ['sex'],
       startTime: '14:00',
@@ -436,6 +441,7 @@ export const mockSubjects: Subject[] = [
     department: 'Química / EBG/EAG',
     professor: 'Prof. Dr. Paulo Mendes',
     classCode: 'EBG/EAG-1223/F3 04 - Turma 3',
+    credits: null,
     schedule: {
       days: ['qua', 'sex'],
       startTime: '10:00',
