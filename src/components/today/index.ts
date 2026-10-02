@@ -5,4 +5,4 @@ export { UpcomingCard } from './UpcomingCard';
 export { TaskList } from './TaskList';
 export type { TimelineEvent } from './types';
 export { computeStatus, getTimeRemaining, getProgress } from './types';
-export { mockTimelineEvents, getEventsForToday, getTasksForToday } from './mockData';
+export { timelineEvents, getEventsForToday, getTasksForToday } from './data';
