@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { ArrowLeft, BookOpen, User, MapPin, Clock, Calendar } from 'lucide-react';
+import { ArrowLeft, BookOpen, User, MapPin, Clock } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import type { Subject } from './types';
 import { createSubjectSummary } from './types';
 
@@ -10,20 +10,22 @@ interface SubjectHeaderProps {
 }
 
 export function SubjectHeader({ subject }: SubjectHeaderProps) {
+  const router = useRouter();
   const summary = createSubjectSummary(subject, new Date());
 
   return (
     <header className="bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link
-            href="/hoje"
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-[var(--elevated)] rounded-lg transition-colors"
-            aria-label="Voltar para Hoje"
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="flex min-h-11 items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-[var(--elevated)] hover:text-foreground"
+            aria-label="Voltar para a página anterior"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             <span className="hidden sm:inline">Voltar</span>
-          </Link>
+          </button>
 
           <div className="flex-1 flex items-center justify-center gap-4">
             <div className="flex items-center gap-3">
