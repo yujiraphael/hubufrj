@@ -373,3 +373,10 @@ Não fechar ainda a arquitetura completa das páginas de matéria, IA, bibliotec
 - Remover aparência de painel administrativo da barra superior.
 - Mobile: barra compacta/flutuante, menu à esquerda, marca central e avatar discreto à direita.
 - Busca e notificações deixam de ocupar a navegação primária até terem função real.
+
+
+## [02/10/2026] - Cálculo 2 como matéria-base real
+- Criar Cálculo 2 (MAC128) como primeira matéria real e referência escalável.
+- Não preencher professor, sala, turma, horário, prova, notas ou materiais sem dado confirmado.
+- A home deve apontar para ações reais de navegação em vez de upload sem persistência.
+- Upload de arquivos só será ativado junto de storage persistente; até lá, não sugerir que arquivos serão salvos localmente ou na nuvem.
