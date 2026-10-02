@@ -203,3 +203,9 @@ Páginas internas de disciplina e demais módulos serão definidos em etapas pos
 5. Páginas e componentes devem ser desenhados primeiro para mobile (360–430 px).
 6. Ações de voltar em telas internas devem priorizar histórico real para preservar contexto e rolagem.
 7. Homepage não deve virar painel de métricas; manter baixa densidade e alto impacto visual.
+
+
+## Regra de Navegação Superior
+- Não exibir busca, notificações ou controles sem função real apenas para preencher espaço.
+- No mobile, a topbar deve ser compacta, visualmente leve e desenhada primeiro para 360–430 px.
+- Avatar deve usar tratamento neutro até existir foto real de perfil.
