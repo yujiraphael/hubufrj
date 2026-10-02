@@ -1,9 +1,8 @@
-import { ArrowUpRight, BookOpen, FileUp, Plus, Sparkles } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUpRight, BookOpen, Layers3, Plus, Sparkles } from 'lucide-react';
 
-const actions = [
-  { label: 'Adicionar matéria', icon: Plus },
-  { label: 'Enviar material', icon: FileUp },
-  { label: 'Criar tarefa', icon: BookOpen },
+const secondaryActions = [
+  { label: 'Minhas matérias', href: '/disciplinas', icon: Layers3 },
 ];
 
 export default function HojePage() {
@@ -25,33 +24,50 @@ export default function HojePage() {
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-            O HubUFRJ começa vazio de propósito. Adicione apenas o que é seu e transforme matérias, materiais e tarefas em um único lugar.
+            O Cálculo 2 agora é a primeira matéria real do HubUFRJ e vai servir de base para evoluirmos o restante do sistema.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            {actions.map(({ label, icon: Icon }, index) => (
-              <button
+            <Link
+              href="/disciplinas/calculo-2"
+              className="inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl border border-foreground bg-foreground px-4 py-3 text-sm font-medium text-background"
+            >
+              <span className="flex items-center gap-2">
+                <BookOpen className="h-4 w-4" aria-hidden="true" />
+                Abrir Cálculo 2
+              </span>
+              <ArrowUpRight className="h-4 w-4 opacity-60" aria-hidden="true" />
+            </Link>
+
+            {secondaryActions.map(({ label, href, icon: Icon }) => (
+              <Link
                 key={label}
-                type="button"
-                disabled
-                title="Será ativado quando conectarmos o banco de dados"
-                className={`inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-80 ${
-                  index === 0
-                    ? 'border-foreground bg-foreground text-background'
-                    : 'border-white/10 bg-white/[0.03] text-foreground'
-                }`}
+                href={href}
+                className="inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm font-medium text-foreground"
               >
                 <span className="flex items-center gap-2">
                   <Icon className="h-4 w-4" aria-hidden="true" />
                   {label}
                 </span>
                 <ArrowUpRight className="h-4 w-4 opacity-60" aria-hidden="true" />
-              </button>
+              </Link>
             ))}
+
+            <button
+              type="button"
+              disabled
+              title="Será ativado quando conectarmos o banco de dados"
+              className="inline-flex min-h-12 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm font-medium text-muted-foreground disabled:cursor-not-allowed"
+            >
+              <span className="flex items-center gap-2">
+                <Plus className="h-4 w-4" aria-hidden="true" />
+                Criar tarefa
+              </span>
+            </button>
           </div>
 
           <p className="mt-4 text-xs text-muted-foreground">
-            Os cadastros serão ativados junto com o banco de dados, sem dados temporários ou fictícios.
+            Upload de arquivos volta quando houver armazenamento persistente conectado.
           </p>
         </div>
       </section>
