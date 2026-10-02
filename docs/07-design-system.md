@@ -146,3 +146,11 @@ A homepage deve parecer produto final, mas continuar preparada para receber uma 
 - Estados vazios são parte do produto: devem explicar o próximo passo e oferecer uma ação clara.
 - A homepage deve privilegiar composição, tipografia, espaço negativo e uma ação principal, evitando métricas e cards administrativos.
 - Navegação mobile deve priorizar alcance do polegar e alvos de toque de pelo menos 44 px.
+
+
+## Cabeçalho Mobile
+- Preferir barra flutuante compacta com superfície translúcida e borda sutil.
+- Altura visual reduzida, alvos de toque mínimos de 44 px.
+- Marca centralizada, controles laterais simétricos.
+- Evitar ícones sem função real e indicadores falsos de notificação.
+- Avatar neutro, sem cor aleatória chamativa.
