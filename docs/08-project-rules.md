@@ -209,3 +209,10 @@ Páginas internas de disciplina e demais módulos serão definidos em etapas pos
 - Não exibir busca, notificações ou controles sem função real apenas para preencher espaço.
 - No mobile, a topbar deve ser compacta, visualmente leve e desenhada primeiro para 360–430 px.
 - Avatar deve usar tratamento neutro até existir foto real de perfil.
+
+
+## Regra de Persistência de Arquivos
+- Nunca oferecer upload funcional sem destino persistente definido.
+- Seleção local de arquivo no navegador não conta como armazenamento.
+- Uploads futuros devem usar storage externo (ex.: Supabase Storage, R2 ou S3) e salvar metadados no banco.
+- Até a camada de dados existir, preferir navegação e ações realmente funcionais.
