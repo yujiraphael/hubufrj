@@ -77,8 +77,7 @@ export function SubjectExamsTab({ subject }: SubjectExamsTabProps) {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className="px-2 py-0.5 text-xs font-medium bg-amber-500/20 text-amber-400 rounded-full">
-                        {exam.status === 'upcoming' && 'AGENDADA'}
-                        {exam.status === 'pending' && 'PENDENTE'}
+                        AGENDADA
                       </span>
                       <span className="px-2 py-0.5 text-xs font-medium bg-amber-500/20 text-amber-400 rounded-full">
                         Peso: {Math.round(exam.weight * 100)}%
