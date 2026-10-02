@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp, Target, Award, BookOpen, AlertTriangle, Clock } from 'lucide-react';
 import type { SubjectSummary } from '@/components/subjects/types';
 import { createSubjectSummary } from '@/components/subjects/types';
-import { mockSubjects } from '@/components/subjects/mockData';
+import { subjects } from '@/components/subjects/data';
 
 interface SubjectProgressWidgetProps {
   maxSubjects?: number;
@@ -119,7 +119,7 @@ export const SubjectProgressWidget = memo(function SubjectProgressWidget({
   variant = 'grid' 
 }: SubjectProgressWidgetProps) {
   const now = new Date();
-  const summaries = mockSubjects
+  const summaries = subjects
     .map(s => createSubjectSummary(s, now))
     .sort((a, b) => {
       // Sort by priority first, then by progress
