@@ -7,35 +7,23 @@ interface AvatarProps {
 }
 
 const sizeClasses = {
-  sm: 'h-8 w-8 text-xs',
-  md: 'h-10 w-10 text-sm',
-  lg: 'h-12 w-12 text-base',
+  sm: 'h-8 w-8 text-[11px]',
+  md: 'h-10 w-10 text-xs',
+  lg: 'h-12 w-12 text-sm',
 };
 
 export function Avatar({ name, size = 'md', className = '' }: AvatarProps) {
   const initials = name
     .split(' ')
-    .map((n) => n[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
     .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
-  const colors = [
-    'bg-blue-500',
-    'bg-green-500',
-    'bg-purple-500',
-    'bg-orange-500',
-    'bg-pink-500',
-    'bg-cyan-500',
-    'bg-indigo-500',
-    'bg-emerald-500',
-  ];
-
-  const colorIndex = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+    .toUpperCase();
 
   return (
     <div
-      className={`${sizeClasses[size]} rounded-full flex items-center justify-center font-medium ${colors[colorIndex]} ${className}`}
+      className={`${sizeClasses[size]} flex items-center justify-center rounded-full bg-white/[0.07] font-semibold tracking-[-0.02em] text-foreground ring-1 ring-inset ring-white/10 ${className}`}
       aria-label={name}
     >
       {initials}
