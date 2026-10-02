@@ -2,7 +2,7 @@ import { HomeFooterGrid } from '@/components/dashboard/HomeFooterGrid';
 import { HomeHero } from '@/components/dashboard/HomeHero';
 import { HomeSubjects } from '@/components/dashboard/HomeSubjects';
 import { HomeToday } from '@/components/dashboard/HomeToday';
-import { mockSubjects } from '@/components/subjects/mockData';
+import { subjects } from '@/components/subjects/data';
 
 function daysUntil(date?: string) {
   if (!date) return null;
@@ -17,14 +17,14 @@ function daysUntil(date?: string) {
 }
 
 export default function HojePage() {
-  const subjects = [...mockSubjects];
-  const featuredSubject = subjects
+  const subjectList = [...subjects];
+  const featuredSubject = subjectList
     .filter((subject) => subject.nextExam)
     .sort((a, b) => {
       const examDiff = (a.nextExam?.date ?? '').localeCompare(b.nextExam?.date ?? '');
       if (examDiff !== 0) return examDiff;
       return a.progress.overall - b.progress.overall;
-    })[0] ?? subjects[0];
+    })[0] ?? subjectList[0];
 
   return (
     <div className="mx-auto w-full max-w-7xl">
@@ -32,9 +32,9 @@ export default function HojePage() {
         subject={featuredSubject}
         examDays={daysUntil(featuredSubject.nextExam?.date)}
       />
-      <HomeToday subjects={subjects} />
-      <HomeSubjects subjects={subjects} />
-      <HomeFooterGrid subjects={subjects} />
+      <HomeToday subjects={subjectList} />
+      <HomeSubjects subjects={subjectList} />
+      <HomeFooterGrid subjects={subjectList} />
     </div>
   );
 }
