@@ -154,3 +154,12 @@ A homepage deve parecer produto final, mas continuar preparada para receber uma 
 - Marca centralizada, controles laterais simétricos.
 - Evitar ícones sem função real e indicadores falsos de notificação.
 - Avatar neutro, sem cor aleatória chamativa.
+
+
+## 13. UX de Segurança e Sessão
+- Segurança não deve poluir a interface principal, mas estados de sessão devem ser claros.
+- Não exibir detalhes técnicos de infraestrutura, IP, porta, caminho de banco ou tokens na UI.
+- Erros de autenticação devem ser genéricos e não revelar se um usuário específico existe.
+- Ações destrutivas futuras exigem confirmação explícita.
+- No mobile, sessão expirada deve redirecionar para autenticação sem perder contexto navegacional quando possível.
+- Nunca usar indicadores falsos de sincronização ou backup.
