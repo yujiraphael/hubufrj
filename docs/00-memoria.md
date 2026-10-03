@@ -380,3 +380,34 @@ Não fechar ainda a arquitetura completa das páginas de matéria, IA, bibliotec
 - Não preencher professor, sala, turma, horário, prova, notas ou materiais sem dado confirmado.
 - A home deve apontar para ações reais de navegação em vez de upload sem persistência.
 - Upload de arquivos só será ativado junto de storage persistente; até lá, não sugerir que arquivos serão salvos localmente ou na nuvem.
+
+
+---
+
+## [03/10/2026] - Arquitetura MVP Local-First + Segurança
+
+### Objetivo desta etapa
+Preparar o HubUFRJ para receber dados reais na próxima etapa, sem adicionar novos dados acadêmicos agora.
+
+### Decisão de Arquitetura
+- Banco de dados principal hospedado localmente no computador do usuário.
+- O navegador/celular **nunca acessa o banco diretamente**.
+- Toda leitura/escrita passa pela aplicação Next.js no servidor.
+- Banco deve escutar apenas em loopback/rede interna controlada.
+- Acesso pelo celular será feito pela aplicação através de rede privada autenticada, preferencialmente Tailscale, sem port-forward público no roteador.
+- Nenhuma credencial, chave ou arquivo de banco pode ser versionado no Git.
+
+### Roadmap até o primeiro MVP
+1. Contrato de dados estável.
+2. Persistência local.
+3. Autenticação real.
+4. CRUD de disciplinas/tarefas/provas/notas.
+5. Dashboard derivado dos dados reais.
+6. Calendário.
+7. Materiais com storage persistente.
+8. Acesso móvel privado.
+9. Backup criptografado e rotina de recuperação.
+10. Revisão de segurança antes de exposição externa.
+
+### Regra de Segurança
+Acesso remoto significa acesso à **aplicação autenticada**, nunca ao arquivo/porta do banco. O banco permanece uma dependência privada do servidor.

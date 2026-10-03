@@ -216,3 +216,34 @@ Páginas internas de disciplina e demais módulos serão definidos em etapas pos
 - Seleção local de arquivo no navegador não conta como armazenamento.
 - Uploads futuros devem usar storage externo (ex.: Supabase Storage, R2 ou S3) e salvar metadados no banco.
 - Até a camada de dados existir, preferir navegação e ações realmente funcionais.
+
+
+## 15. Persistência Local e Segurança
+1. O banco de dados nunca deve ser exposto diretamente à internet.
+2. Clientes web/mobile acessam somente a aplicação/API autenticada.
+3. Conexões do banco devem usar loopback ou rede privada controlada.
+4. Proibido abrir a porta do banco no roteador, usar UPnP para o banco ou publicar DATABASE_URL no cliente.
+5. Segredos ficam apenas em variáveis de ambiente server-side; nunca usar prefixo `NEXT_PUBLIC_` para credenciais.
+6. Arquivos `.db`, WAL, backups, dumps e diretórios de dados locais devem permanecer fora do Git.
+7. Acesso remoto ao MVP deve priorizar uma rede privada autenticada (ex.: Tailscale) em vez de exposição pública.
+8. Autenticação da aplicação continua obrigatória mesmo dentro da rede privada.
+9. Sessões futuras devem usar cookies `HttpOnly`, `Secure` e `SameSite` apropriado.
+10. Toda mutação futura deve validar autorização no servidor e nunca confiar em IDs/roles enviados pelo cliente.
+11. Logs não podem registrar senha, token, cookie, DATABASE_URL ou conteúdo sensível.
+12. Backups devem ser criptografados e testados por restauração.
+
+## 16. Camada de Dados
+- Componentes React não importam driver/ORM diretamente.
+- Páginas e Server Actions consomem repositórios/serviços server-side.
+- A camada de domínio continua independente da tecnologia de persistência.
+- A primeira persistência será preparada para banco local e deverá permitir migração futura sem reescrever a UI.
+- Até os dados reais serem inseridos, estados vazios continuam sendo o comportamento correto.
+
+## 17. Critérios mínimos do MVP seguro
+- Build e lint sem erro.
+- Nenhum segredo ou banco versionado.
+- Banco inacessível diretamente de fora do host.
+- Rotas privadas exigem autenticação real.
+- Acesso móvel ocorre por canal privado/HTTPS.
+- Backup e restauração documentados.
+- Dependências auditadas antes da publicação.
